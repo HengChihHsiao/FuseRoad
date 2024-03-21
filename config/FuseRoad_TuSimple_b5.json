@@ -1,0 +1,68 @@
+{
+    "system": {
+        "exp_name": "FuseRoad_TuSimple_b5",
+        "dataset": "TUSIMPLE",
+        "batch_size": 4,
+        "chunk_sizes": [4],
+        
+        "sampling_function": "kp_detection",
+        
+        "train_split": "train+val",
+        "val_split": "val",
+        "test_split": "test",
+        
+        "learning_rate": 0.0001,
+        "decay_rate": 10,
+        "weight_decay": 1e-4,
+        "seg_learning_rate": 1e-5,
+        "seg_decay_rate": 10,
+        "seg_weight_decay": 1e-4,
+        
+        "val_iter": 100,
+        "display": 100,
+        
+        "opt_algo": "adam",
+        "seg_opt_algo": "adamW",
+        "prefetch_size": 5,
+        
+        "max_iter": 800000,
+        "stepsize": 600000,
+        "snapshot": 1000,
+        "warmup_steps": 1000,
+        
+        "cache_dir": "./cache/FuseRoad_TuSimple_b5",
+        "result_dir": "./results/FuseRoad_TuSimple_b5",
+        "data_dir": "./dataset",
+        
+        "backbone_output_dims": 256,
+        "SRKE_proj_dims": 768,
+
+        "attn_dim": 64,
+        "dim_feedforward": 256,
+        "mit_name": "b5",
+        "mit_pretrained_path": "models/py_utils/SegFormer/imagenet_pretrained/mit_b5.pth",        
+
+        "kps_dim": 8,
+        
+        "use_SRKE": true,
+        "num_heads": 2,
+        "enc_layers": 2,
+        "dec_layers": 2,
+        "block": "BottleNeck",
+        "num_queries": 7,
+
+        "input_size": [360, 640],
+        "test_seg_input_size": [360, 640],
+
+        "seg_n_class": 19,
+        "seg_csv_path": "dataset/Cityscapes/Cityscapes_class_dict.csv",
+        "drivable_area_classes": [0, 5, 8, 11, 16, 17, 18]
+    },
+    
+    "db": {
+        "rand_color": true,
+        "input_size": [360, 640],
+        "test_scales": [1],
+        "categories": 1
+    }
+}
