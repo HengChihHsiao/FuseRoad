@@ -82,8 +82,26 @@ Cityscapes/
     Cityscapes_class_dict_19_classes.csv
 ```
 
+## Training
+Download the pretrained weights from [Segformer](https://github.com/NVlabs/SegFormer) provided [OneDrive](https://connecthkuhk-my.sharepoint.com/personal/xieenze_connect_hku_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fxieenze%5Fconnect%5Fhku%5Fhk%2FDocuments%2Fsegformer%2Fpretrained%5Fmodels&ga=1) and put it to models/py_utils/SegFormer/imagenet_pretrained directory.
+To train a model:
+
+(If you only want to use the train set, please see config file and set "train_split": "train")
+
+(If you don't want to use the SRKE module, please set "use_SRKE": False)
+```
+python train.py CONFIG_FILE_NAME --model_name FuseRoad
+```
+* Visualized images are in ./results during training.
+* Saved model files are in ./cache during training.
+
+To train a model from a snapshot model file:
+```
+python train.py CONFIG_FILE_NAME --model_name FuseRoad --iter ITER_NUMS
+```
+
 ## Evaluation
-Download the pretrained model from [GoogleDrive](https://drive.google.com/drive/folders/1e35oSeIUSWnr4MvrlIP853U91qCwbnLp?usp=drive_link) and put it to models/py_utils/SegFormer/imagenet_pretrained directory.
+Download the trained model from [GoogleDrive](https://drive.google.com/drive/folders/1e35oSeIUSWnr4MvrlIP853U91qCwbnLp?usp=drive_link) and put it to ./cache directory.
 
 ### Example
 ```
@@ -118,22 +136,9 @@ python test.py FuseRoad_TuSimple --model_name FuseRoad --modality eval --split t
 python test.py FuseRoad_TuSimple --model_name FuseRoad --modality images --image_root root_dir --debug
 ```
 
-## Training
-
-To train a model:
-
-(If you only want to use the train set, please see config file and set "train_split": "train")
-
-(If you don't want to use the SRKE module, please set "use_SRKE": False)
+### Or can use the following command to demo on images in a specific directory and determine the output directory(recommended):
 ```
-python train.py CONFIG_FILE_NAME --model_name FuseRoad
-```
-* Visualized images are in ./results during training.
-* Saved model files are in ./cache during training.
-
-To train a model from a snapshot model file:
-```
-python train.py CONFIG_FILE_NAME --model_name FuseRoad --iter ITER_NUMS
+python3 demo.py FuseRoad_TuSimple --model_name FuseRoad --testiter 800000 --image_root image_dir --save_root save_dir
 ```
 
 ## Results
