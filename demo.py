@@ -74,7 +74,6 @@ def make_dirs(directories):
 def demo_on_image(img_path, save_path, nnet, evaluator=None, ind=0):
     model_mode = 'lane_shape'
     
-    # input_size  = lane_db.configs["input_size"]  # [h w]
     input_size  = system_configs.input_size # [h w]
     postprocessors = {'bbox': PostProcess()}
 
@@ -148,10 +147,6 @@ if __name__ == "__main__":
     args = parse_args()
 
     cfg_file = os.path.join(system_configs.config_dir, args.cfg_file + ".json")
-    # if args.suffix is None:
-    #     cfg_file = os.path.join(system_configs.config_dir, args.cfg_file + ".json")
-    # else:
-    #     cfg_file = os.path.join(system_configs.config_dir, args.cfg_file + "-{}.json".format(args.suffix))
     print("cfg_file: {}".format(cfg_file))
 
     with open(cfg_file, "r") as f:
@@ -166,36 +161,7 @@ if __name__ == "__main__":
     testiter = args.testiter
     image_root = args.image_root
 
-    # split = "testing"
-    # lane_split = {
-    #     "training": lane_train_split,
-    #     "validation": lane_val_split,
-    #     "testing": lane_test_split
-    # }[split]
-    
-    # print("loading all datasets...")
-    # lane_dataset = system_configs.dataset
-    # print("lane_split: {}".format(lane_split))  # test
-
-    # testing_lane_db = datasets[lane_dataset](configs["db"], lane_split)
-
-    # seg_dataset = system_configs.seg_dataset
-    # seg_train_split = system_configs.seg_train_split
-    # seg_val_split = system_configs.seg_val_split
-    # seg_test_split = system_configs.seg_test_split
-    # seg_csv_path = system_configs.seg_csv_path
-
-    # seg_split = {
-    #     "training": seg_train_split,
-    #     "validation": seg_val_split,
-    #     "testing": seg_test_split
-    # }[args.split]
-
-    # testing_seg_db = datasets[seg_dataset](configs["db"], seg_split, seg_csv_path)
-
     save_dir = system_configs.result_dir if args.save_root is None else args.save_root
-    # result_dir = os.path.join(result_dir, str(testiter), split)
-
     make_dirs([save_dir])
     test_iter = system_configs.max_iter if testiter is None else testiter
     print("loading parameters at iteration: {}".format(test_iter))
@@ -213,7 +179,6 @@ if __name__ == "__main__":
     print("processing [images]...")
     test_file = "test.images_FuseRoad"
     image_testing = importlib.import_module(test_file).testing
-    # image_testing(lane_db, seg_db, nnet, image_root, debug=None, evaluator=None)
     
     image_list = natsorted(glob(os.path.join(image_root, "*.*")))
     for ind, img_path in enumerate(image_list):
