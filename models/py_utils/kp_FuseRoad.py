@@ -18,7 +18,6 @@ from config import system_configs
 
 # KEA_module
 from .orn import ORConv2d, RotationInvariantPooling
-from mmcv.ops import DeformConv2dPack as DCN
 from .SegFormer.SegFormer import get_mit, get_segformer_head
 
 BN_MOMENTUM = 0.1
